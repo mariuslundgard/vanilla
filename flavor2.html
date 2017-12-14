@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>vanilla – flavor2</title>
+</head>
+<body>
+<details open>
+  <summary>Toggle me</summary>
+  <div>
+    <h1>Details component demo</h1>
+  </div>
+</details>
+<script src="flavor2.js"></script>
+<script type="text/javascript">
+'use strict'
+
+let detailsContext = details(document.querySelector('details'))
+
+detailsContext.subscribe(state => {
+  console.log('new state', state)
+})
+
+let intervalId = setInterval(() => {
+  detailsContext.toggle()
+}, 1000)
+
+setTimeout(() => {
+  clearInterval(intervalId)
+  intervalId = null
+  detailsContext.unmount()
+  detailsContext = null
+}, 5000)
+</script>
+</body>
+</html>
