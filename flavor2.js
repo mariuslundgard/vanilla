@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * Approach inspired by reactive programming
+ * Approach inspired by reactive programming (#1)
  */
 
 function details(elm) {
