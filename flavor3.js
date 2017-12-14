@@ -14,8 +14,9 @@ class Details {
   }
 
   handleToggle() {
+    const prevState = this.state
     this.state = {...this.state, open: this.elm.open}
-    this.observers.forEach(observer => observer(this.state))
+    this.observers.forEach(observer => observer(this.state, prevState))
   }
 
   toggle() {

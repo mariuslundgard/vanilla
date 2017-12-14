@@ -10,8 +10,9 @@ function details(elm) {
 
   const handlers = {
     toggle: () => {
+      const prevState = state
       state = {...state, open: elm.open}
-      observers.forEach(observer => observer(state))
+      observers.forEach(observer => observer(state, prevState))
     }
   }
 
