@@ -8,12 +8,13 @@ function details(elm) {
   let observers = []
   let state = {open: elm.open}
 
+  const setState = newState => {
+    observers.forEach(observer => observer(newState, state))
+    state = newState
+  }
+
   const handlers = {
-    toggle: () => {
-      const prevState = state
-      state = {...state, open: elm.open}
-      observers.forEach(observer => observer(state, prevState))
-    }
+    toggle: () => setState({...state, open: elm.open})
   }
 
   const subscribe = observer => {

@@ -13,10 +13,13 @@ class Details {
     this.elm.addEventListener('toggle', this.handleToggle)
   }
 
+  setState(newState) {
+    this.observers.forEach(observer => observer(newState, this.state))
+    this.state = newState
+  }
+
   handleToggle() {
-    const prevState = this.state
-    this.state = {...this.state, open: this.elm.open}
-    this.observers.forEach(observer => observer(this.state, prevState))
+    this.setState({...this.state, open: this.elm.open})
   }
 
   toggle() {
