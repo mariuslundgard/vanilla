@@ -6,15 +6,15 @@ Approach inspired by Eirik Backer.
 
 ## [Flavor 2](flavor2.html)
 
-Approach inspired by reactive programming (#1).
+Approach inspired by functional reactive programming (#1).
 
 ## [Flavor 3](flavor3.html)
 
-Approach inspired by reactive programming (#2).
+Approach inspired by functional reactive programming (#2).
 
 ## [Flavor 4](flavor4.html)
 
-Approach inspired by reactive programming (#3) and Redux.
+Approach inspired by functional reactive programming (#3) and Redux.
 
 ## [Flavor 5](flavor5.html)
 
@@ -26,4 +26,4 @@ Approach inspired by MVC.
 
 ## [Flavor 7](flavor7.html)
 
-**TODO:** Approach inspired by functional programming.
+Approach inspired by functional reactive programming (#4).
