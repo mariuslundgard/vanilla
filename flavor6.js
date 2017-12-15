@@ -18,6 +18,7 @@ class DetailsModel {
 
   subscribe(observer) {
     this.observers.push(observer)
+    // return unsubscribe function:
     return () => {
       const idx = this.observers.indexOf(observer)
       if (idx > -1) this.observers.splice(idx, 1)
