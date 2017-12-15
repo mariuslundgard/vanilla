@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>vanilla – flavor5</title>
+<title>vanilla – flavor6</title>
 </head>
 <body>
 <details open>
@@ -11,25 +11,27 @@
     <h1>Details component demo</h1>
   </div>
 </details>
-<script src="flavor5.js"></script>
+<script src="index.js"></script>
 <script type="text/javascript">
 'use strict'
 
-let details = new Details(document.querySelector('details'))
+let detailsView = document.querySelector('details')
+let detailsCtrl = new DetailsController(DetailsModel.fromElement(detailsView), detailsView)
 
-details.subscribe(state => {
+detailsCtrl.model.subscribe(state => {
   console.log('new state', state)
 })
 
 let intervalId = setInterval(() => {
-  details.toggle()
+  detailsCtrl.toggle()
 }, 1000)
 
 setTimeout(() => {
   clearInterval(intervalId)
   intervalId = null
-  details.unmount()
-  details = null
+  detailsCtrl.unmount()
+  detailsCtrl = null
+  detailsView = null
 }, 5000)
 </script>
 </body>

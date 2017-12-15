@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>vanilla – flavor3</title>
+<title>vanilla – flavor1</title>
 </head>
 <body>
 <details open>
@@ -11,25 +11,29 @@
     <h1>Details component demo</h1>
   </div>
 </details>
-<script src="flavor3.js"></script>
+<script src="index.js"></script>
 <script type="text/javascript">
 'use strict'
 
-let details = new Details(document.querySelector('details'))
+let detailsElm = document.querySelector('details')
+let detailsState = details(detailsElm)
 
-details.subscribe(state => {
+let ontoggle = state => {
   console.log('new state', state)
-})
+  detailsState = state
+}
 
 let intervalId = setInterval(() => {
-  details.toggle()
+  details(detailsElm, {ontoggle, open: !detailsState.open})
 }, 1000)
 
 setTimeout(() => {
   clearInterval(intervalId)
   intervalId = null
-  details.unmount()
-  details = null
+  detailsUnmount(detailsElm)
+  detailsElm = null
+  detailsState = null
+  ontoggle = null
 }, 5000)
 </script>
 </body>
