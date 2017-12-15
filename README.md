@@ -23,3 +23,7 @@ Approach inspired by React
 ## [Flavor 6](flavor6.html)
 
 Approach inspired by MVC.
+
+## [Flavor 7](flavor7.html)
+
+**TODO:** Approach inspired by functional programming.
