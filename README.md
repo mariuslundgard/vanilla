@@ -18,7 +18,7 @@ Approach inspired by reactive programming (#3) and Redux.
 
 ## [Flavor 5](flavor5.html)
 
-Approach inspired by React
+Approach inspired by React.
 
 ## [Flavor 6](flavor6.html)
 
