@@ -22,4 +22,4 @@ Approach inspired by React
 
 ## [Flavor 6](flavor6.html)
 
-**TODO:** Approach inspired by MVC.
+Approach inspired by MVC.
