@@ -2,14 +2,14 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>vanilla – flavor6</title>
+<title>vanilla – flavor4</title>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <div class="container-lg" id="root"></div>
 <script src="lib.js"></script>
 <script src="details.js"></script>
-<script type="text/javascript">
+<script>
 'use strict'
 
 const rootElm = document.getElementById('root')
@@ -29,8 +29,8 @@ const ctrl = new DetailsController(model, view)
 ctrl.mount()
 
 // Subscribe to state changes
-model.subscribe(state => {
-  console.log('new state', state)
+model.subscribe((state, prevState) => {
+  console.log('state transition from', prevState, 'to', state)
 })
 
 // Simulate usage (async events)

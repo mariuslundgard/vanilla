@@ -9,7 +9,7 @@
 <div class="container-lg" id="root"></div>
 <script src="lib.js"></script>
 <script src="details.js"></script>
-<script type="text/javascript">
+<script>
 'use strict'
 
 const rootElm = document.getElementById('root')
@@ -22,8 +22,8 @@ rootElm.innerHTML = details.html()
 details.mount(rootElm.children[0])
 
 // Subscribe to state changes
-const unsubscribe = details.subscribe(state => {
-  console.log('new state', state)
+const unsubscribe = details.subscribe((state, prevState) => {
+  console.log('state transition from:', prevState, 'to:', state)
 })
 
 // Simulate usage (async events)

@@ -5,7 +5,7 @@
  */
 
 const details = {
-  getStateAndOrPatch(elm, props = {}) {
+  mountPatchAndGetState(elm, props = {}) {
     let state = elm ? getState(elm) || {open: elm.open} : {open: props.open || false}
 
     // patch element and state

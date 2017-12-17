@@ -14,36 +14,38 @@ const details = {
 
   // Mount the component to the DOM (function with side-effects)
   mount(elm, initialState) {
-    const modelSubject = createSubject()
+    const stateSubject = createSubject()
     const toggleStream = fromEvent(elm, 'toggle')
     const openStream = map(toggleStream, () => elm.open)
-    const modelStream = fold(openStream, (model, open) => ({...model, open}), initialState)
-    const modelUnsubscribe = modelStream(modelSubject.next)
+    const stateStream = pairwise(fold(openStream, (state, open) => ({...state, open}), initialState))
+    const stateUnsubscribe = stateStream(([prevState, state]) => stateSubject.next([state, prevState]))
 
     const commands = {
       toggle: () => (elm.open = !elm.open)
     }
 
     const unmount = () => {
-      modelUnsubscribe()
-      modelSubject.destroy()
+      stateUnsubscribe()
+      stateSubject.destroy()
     }
 
     return {
       commands,
-      subscribe: modelSubject.subscribe,
+      subscribe: stateSubject.subscribe,
       unmount
     }
   },
 
   // Patch the component element (function with side-effects)
-  patch(elm, model) {
-    elm.open = model.open
+  patch(elm, state, prevState) {
+    if (state.open !== prevState.open) {
+      elm.open = state.open
+    }
   },
 
   // Render the component as HTML (pure function)
-  html(model) {
-    return `<details${model.open ? ' open' : ''}>
+  html(state) {
+    return `<details${state.open ? ' open' : ''}>
       <summary>Toggle me</summary>
       <div>
         <h1>Details component demo</h1>

@@ -25,23 +25,19 @@ class Details extends Component {
 
   // Mount to the component element (method with side-effects)
   mount(elm) {
-    if (!this.elm) {
-      this.elm = elm
-      this.elm.addEventListener('toggle', this.listeners.toggle)
-    }
+    this.elm = elm
+    this.elm.addEventListener('toggle', this.listeners.toggle)
   }
 
   // Unmount from the component element (method with side-effects)
   unmount() {
-    if (this.elm) {
-      this.elm.removeEventListener('toggle', this.listeners.toggle)
-      this.elm = null
-    }
+    this.elm.removeEventListener('toggle', this.listeners.toggle)
+    this.elm = null
   }
 
   // Patch the component element (method with side-effects)
-  patch() {
-    if (this.elm) {
+  patch(prevState) {
+    if (prevState.open !== this.state.open) {
       this.elm.open = this.state.open
     }
   }

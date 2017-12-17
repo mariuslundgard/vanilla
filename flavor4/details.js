@@ -20,8 +20,10 @@ class DetailsView {
     this.elm = elm
   }
 
-  patch() {
-    this.elm.open = this.model.state.open
+  patch(prevState) {
+    if (prevState.open !== this.model.state.open) {
+      this.elm.open = this.model.state.open
+    }
   }
 
   html() {
@@ -40,15 +42,17 @@ class DetailsController {
     this.view = view
     this.commands = {
       toggle: () => {
-        this.model.setOpen(!this.model.state.open)
-        this.view.patch()
+        const prevState = this.model.state
+        this.model.setOpen(!prevState.open)
+        this.view.patch(prevState)
       }
     }
     this.listeners = {
       toggle: () => {
-        if (this.model.state.open !== this.view.elm.open) {
+        const prevState = this.model.state
+        if (prevState.open !== this.view.elm.open) {
           this.model.setOpen(this.view.elm.open)
-          this.view.patch()
+          this.view.patch(prevState)
         }
       }
     }

@@ -7,9 +7,10 @@ class Component {
   }
 
   setState(newState) {
-    this.observers.forEach(observer => observer(newState, this.state))
+    const prevState = this.state
+    this.observers.forEach(observer => observer(newState, prevState))
     this.state = newState
-    this.patch()
+    this.patch(prevState)
   }
 
   subscribe(observer) {

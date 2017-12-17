@@ -14,6 +14,18 @@ const fold = (source, f, initialValue) => {
   return next => source(value => next((acc = f(acc, value))))
 }
 
+const pairwise = source => next => {
+  let i = 0
+  let prevValue
+  return source(value => {
+    i += 1
+    if (i > 1) {
+      next([prevValue, value])
+    }
+    prevValue = value
+  })
+}
+
 const createSubject = () => {
   let observers = []
 

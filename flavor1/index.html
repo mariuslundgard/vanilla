@@ -25,7 +25,7 @@ let ontoggle = newState => {
 }
 
 let intervalId = setInterval(() => {
-  details.getStateAndOrPatch(elm, {ontoggle, open: !state.open})
+  details.mountPatchAndGetState(elm, {ontoggle, open: !state.open})
 }, 1000)
 
 setTimeout(() => {

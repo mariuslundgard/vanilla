@@ -2,14 +2,14 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>vanilla – flavor7</title>
+<title>vanilla – flavor5</title>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <div class="container-lg" id="root"></div>
 <script src="lib.js"></script>
 <script src="details.js"></script>
-<script type="text/javascript">
+<script>
 'use strict'
 
 const rootElm = document.getElementById('root')
@@ -20,9 +20,9 @@ rootElm.innerHTML = details.html(initialState)
 const elm = rootElm.children[0]
 const {commands, subscribe, unmount} = details.mount(elm, initialState)
 
-subscribe(state => {
-  console.log('new state', state)
-  details.patch(elm, state)
+subscribe(([state, prevState]) => {
+  console.log('state transition from', prevState, 'to', state)
+  details.patch(elm, state, prevState)
 })
 
 // Simulate usage (async events)
