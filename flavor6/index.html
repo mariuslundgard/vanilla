@@ -6,36 +6,38 @@
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<div class="container-lg">
-  <details open>
-    <summary>Toggle me</summary>
-    <div>
-      <h1>Details component demo</h1>
-    </div>
-  </details>
-</div>
+<div class="container-lg" id="root"></div>
 <script src="lib.js"></script>
-<script src="index.js"></script>
+<script src="details.js"></script>
 <script type="text/javascript">
 'use strict'
 
-let detailsView = document.querySelector('details')
-let detailsCtrl = new DetailsController(DetailsModel.fromElement(detailsView), detailsView)
+const rootElm = document.getElementById('root')
 
-detailsCtrl.model.subscribe(state => {
+// Create component model
+const model = new DetailsModel({open: true})
+
+// Subscribe to state changes
+model.subscribe(state => {
   console.log('new state', state)
 })
 
-let intervalId = setInterval(() => {
-  detailsCtrl.toggle()
-}, 1000)
+// Create component view
+const view = new DetailsView(model)
 
+// Render component to the DOM
+rootElm.innerHTML = view.html()
+view.setElement(rootElm.children[0])
+
+// Create component controller and mount to the DOM
+const ctrl = new DetailsController(model, view)
+ctrl.mount()
+
+// Simulate usage (async events)
+const intervalId = setInterval(ctrl.commands.toggle, 1000)
 setTimeout(() => {
   clearInterval(intervalId)
-  intervalId = null
-  detailsCtrl.unmount()
-  detailsCtrl = null
-  detailsView = null
+  ctrl.unmount()
 }, 5000)
 </script>
 </body>

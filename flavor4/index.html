@@ -6,35 +6,35 @@
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<div class="container-lg">
-  <details open>
-    <summary>Toggle me</summary>
-    <div>
-      <h1>Details component demo</h1>
-    </div>
-  </details>
-</div>
+<div class="container-lg" id="root"></div>
 <script src="lib.js"></script>
-<script src="index.js"></script>
+<script src="details.js"></script>
 <script type="text/javascript">
 'use strict'
 
-let detailsContext = details(document.querySelector('details'))
+const rootElm = document.getElementById('root')
 
-detailsContext.subscribe(state => {
+// Initialize the component state
+const initialState = details.init({open: true})
+
+// Render and mount the component to the DOM
+rootElm.innerHTML = details.html(initialState)
+const elm = rootElm.children[0]
+const {commands, subscribe, unmount} = details.mount(elm, initialState)
+
+// Subscribe to state changes
+const unsubscribe = subscribe(state => {
   console.log('new state', state)
+  details.patch(elm, state)
 })
 
-let intervalId = setInterval(() => {
-  detailsContext.toggle()
-}, 1000)
-
+// Simulate usage (async events)
+const intervalId = setInterval(commands.toggle, 1000)
 setTimeout(() => {
   clearInterval(intervalId)
-  intervalId = null
-  detailsContext.unmount()
-  detailsContext = null
-}, 5000)
+  unsubscribe()
+  unmount()
+}, 5500)
 </script>
 </body>
 </html>

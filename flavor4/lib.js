@@ -6,11 +6,6 @@ const createStore = initialState => {
   let state = initialState
   let observers = []
 
-  const destroy = () => {
-    observers = null
-    state = null
-  }
-
   const getState = () => state
 
   const patch = f => {
@@ -29,7 +24,6 @@ const createStore = initialState => {
   }
 
   return {
-    destroy,
     getState,
     patch,
     subscribe

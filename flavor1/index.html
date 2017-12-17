@@ -6,39 +6,36 @@
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<div class="container-lg">
-  <details open>
-    <summary>Toggle me</summary>
-    <div>
-      <h1>Details component demo</h1>
-    </div>
-  </details>
-</div>
+<div class="container-lg" id="root"></div>
 <script src="lib.js"></script>
-<script src="index.js"></script>
-<script type="text/javascript">
+<script src="details.js"></script>
+<script>
 'use strict'
 
-let detailsElm = document.querySelector('details')
-let detailsState = details(detailsElm)
+let rootElm = document.getElementById('root')
+let state = details.getStateAndOrPatch(null, {open: true})
 
-let ontoggle = state => {
-  console.log('new state', state)
-  detailsState = state
+rootElm.innerHTML = details.html(state)
+
+let elm = rootElm.children[0]
+
+let ontoggle = newState => {
+  console.log('new state', newState)
+  state = newState
 }
 
 let intervalId = setInterval(() => {
-  details(detailsElm, {ontoggle, open: !detailsState.open})
+  details.getStateAndOrPatch(elm, {ontoggle, open: !state.open})
 }, 1000)
 
 setTimeout(() => {
   clearInterval(intervalId)
   intervalId = null
-  detailsUnmount(detailsElm)
-  detailsElm = null
-  detailsState = null
+  details.unmount(elm)
+  elm = null
+  state = null
   ontoggle = null
-}, 5000)
+}, 5500)
 </script>
 </body>
 </html>
