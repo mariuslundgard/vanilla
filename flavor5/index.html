@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>vanilla – flavor6</title>
+<title>vanilla – flavor7</title>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -13,32 +13,24 @@
 'use strict'
 
 const rootElm = document.getElementById('root')
+const initialState = details.init({open: true})
 
-// Create component model
-const model = new DetailsModel({open: true})
+rootElm.innerHTML = details.html(initialState)
 
-// Create component view
-const view = new DetailsView(model)
+const elm = rootElm.children[0]
+const {commands, subscribe, unmount} = details.mount(elm, initialState)
 
-// Render component to the DOM
-rootElm.innerHTML = view.html()
-view.setElement(rootElm.children[0])
-
-// Create component controller and mount to the DOM
-const ctrl = new DetailsController(model, view)
-ctrl.mount()
-
-// Subscribe to state changes
-model.subscribe(state => {
+subscribe(state => {
   console.log('new state', state)
+  details.patch(elm, state)
 })
 
 // Simulate usage (async events)
-const intervalId = setInterval(ctrl.commands.toggle, 1000)
+const intervalId = setInterval(commands.toggle, 1000)
 setTimeout(() => {
   clearInterval(intervalId)
-  ctrl.unmount()
-}, 5000)
+  unmount()
+}, 5500)
 </script>
 </body>
 </html>

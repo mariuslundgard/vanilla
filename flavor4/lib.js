@@ -2,30 +2,23 @@
 
 /* Reusable code */
 
-const createStore = initialState => {
-  let state = initialState
-  let observers = []
-
-  const getState = () => state
-
-  const patch = f => {
-    const newState = f(state)
-    observers.forEach(observer => observer(newState, state))
-    state = newState
+class Model {
+  constructor(state) {
+    this.state = state
+    this.observers = []
   }
 
-  const subscribe = observer => {
-    observers.push(observer)
+  setState(state) {
+    this.observers.forEach(observer => observer(state, this.state))
+    this.state = state
+  }
+
+  subscribe(observer) {
+    this.observers.push(observer)
     // return unsubscribe function:
     return () => {
-      const idx = observers.indexOf(observer)
-      if (idx > -1) observers.splice(idx, 1)
+      const idx = this.observers.indexOf(observer)
+      if (idx > -1) this.observers.splice(idx, 1)
     }
-  }
-
-  return {
-    getState,
-    patch,
-    subscribe
   }
 }

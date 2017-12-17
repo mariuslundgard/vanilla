@@ -1,64 +1,53 @@
 'use strict'
 
 /*
- * Approach inspired by MVC
+ * Approach using functional reactive programming
  */
 
-class DetailsModel extends Model {
-  setOpen(open) {
-    this.setState({...this.state, open})
-  }
-}
+const details = {
+  // Initialize the component state (pure function)
+  init(props = {}) {
+    return {
+      open: props.open || false
+    }
+  },
 
-class DetailsView {
-  constructor(model) {
-    this.model = model
-    this.elm = null
-  }
+  // Mount the component to the DOM (function with side-effects)
+  mount(elm, initialState) {
+    const modelSubject = createSubject()
+    const toggleStream = fromEvent(elm, 'toggle')
+    const openStream = map(toggleStream, () => elm.open)
+    const modelStream = fold(openStream, (model, open) => ({...model, open}), initialState)
+    const modelUnsubscribe = modelStream(modelSubject.next)
 
-  setElement(elm) {
-    this.elm = elm
-  }
+    const commands = {
+      toggle: () => (elm.open = !elm.open)
+    }
 
-  patch() {
-    this.elm.open = this.model.state.open
-  }
+    const unmount = () => {
+      modelUnsubscribe()
+      modelSubject.destroy()
+    }
 
-  html() {
-    return `<details${this.model.state.open ? ' open' : ''}>
+    return {
+      commands,
+      subscribe: modelSubject.subscribe,
+      unmount
+    }
+  },
+
+  // Patch the component element (function with side-effects)
+  patch(elm, model) {
+    elm.open = model.open
+  },
+
+  // Render the component as HTML (pure function)
+  html(model) {
+    return `<details${model.open ? ' open' : ''}>
       <summary>Toggle me</summary>
       <div>
         <h1>Details component demo</h1>
       </div>
     </details>`
-  }
-}
-
-class DetailsController {
-  constructor(model, view) {
-    this.model = model
-    this.view = view
-    this.commands = {
-      toggle: () => {
-        this.model.setOpen(!this.model.state.open)
-        this.view.patch()
-      }
-    }
-    this.listeners = {
-      toggle: () => {
-        if (this.model.state.open !== this.view.elm.open) {
-          this.model.setOpen(this.view.elm.open)
-          this.view.patch()
-        }
-      }
-    }
-  }
-
-  mount() {
-    this.view.elm.addEventListener('toggle', this.listeners.toggle)
-  }
-
-  unmount() {
-    this.view.elm.removeEventListener('toggle', this.listeners.toggle)
   }
 }

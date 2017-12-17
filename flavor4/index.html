@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>vanilla – flavor4</title>
+<title>vanilla – flavor6</title>
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -14,27 +14,31 @@
 
 const rootElm = document.getElementById('root')
 
-// Initialize the component state
-const initialState = details.init({open: true})
+// Create component model
+const model = new DetailsModel({open: true})
 
-// Render and mount the component to the DOM
-rootElm.innerHTML = details.html(initialState)
-const elm = rootElm.children[0]
-const {commands, subscribe, unmount} = details.mount(elm, initialState)
+// Create component view
+const view = new DetailsView(model)
+
+// Render component to the DOM
+rootElm.innerHTML = view.html()
+view.setElement(rootElm.children[0])
+
+// Create component controller and mount to the DOM
+const ctrl = new DetailsController(model, view)
+ctrl.mount()
 
 // Subscribe to state changes
-const unsubscribe = subscribe(state => {
+model.subscribe(state => {
   console.log('new state', state)
-  details.patch(elm, state)
 })
 
 // Simulate usage (async events)
-const intervalId = setInterval(commands.toggle, 1000)
+const intervalId = setInterval(ctrl.commands.toggle, 1000)
 setTimeout(() => {
   clearInterval(intervalId)
-  unsubscribe()
-  unmount()
-}, 5500)
+  ctrl.unmount()
+}, 5000)
 </script>
 </body>
 </html>
