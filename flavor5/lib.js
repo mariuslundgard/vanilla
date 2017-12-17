@@ -2,14 +2,15 @@
 
 /* Reusable code */
 
-class Component {
-  constructor() {
+class Model {
+  constructor(state) {
+    this.state = state
     this.observers = []
   }
 
-  setState(newState) {
-    this.observers.forEach(observer => observer(newState, this.state))
-    this.state = newState
+  setState(state) {
+    this.observers.forEach(observer => observer(state, this.state))
+    this.state = state
   }
 
   subscribe(observer) {
@@ -19,10 +20,5 @@ class Component {
       const idx = this.observers.indexOf(observer)
       if (idx > -1) this.observers.splice(idx, 1)
     }
-  }
-
-  destroy() {
-    this.state = null
-    this.observers = null
   }
 }

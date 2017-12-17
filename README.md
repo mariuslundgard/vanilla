@@ -27,12 +27,8 @@ Approach inspired by functional reactive programming (#3) and Redux.
 
 ### [Flavor 5](flavor5/)
 
-Approach inspired by React (obsolete).
-
-### [Flavor 6](flavor6/)
-
 Approach inspired by MVC.
 
-### [Flavor 7](flavor7/)
+### [Flavor 6](flavor6/)
 
 Approach inspired by functional reactive programming (#4).

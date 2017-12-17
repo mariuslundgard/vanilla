@@ -2,23 +2,37 @@
 
 /* Reusable code */
 
-class Model {
-  constructor(state) {
-    this.state = state
-    this.observers = []
-  }
+const fromEvent = (elm, type) => next => {
+  elm.addEventListener(type, next)
+  return () => elm.removeEventListener(type, next)
+}
 
-  setState(state) {
-    this.observers.forEach(observer => observer(state, this.state))
-    this.state = state
-  }
+const map = (source, f) => next => source(value => next(f(value)))
 
-  subscribe(observer) {
-    this.observers.push(observer)
+const fold = (source, f, initialValue) => {
+  let acc = initialValue
+  return next => source(value => next((acc = f(acc, value))))
+}
+
+const createSubject = () => {
+  let observers = []
+
+  const destroy = () => (observers = null)
+
+  const next = value => observers.forEach(observer => observer(value))
+
+  const subscribe = observer => {
+    observers.push(observer)
     // return unsubscribe function:
     return () => {
-      const idx = this.observers.indexOf(observer)
-      if (idx > -1) this.observers.splice(idx, 1)
+      const idx = observers.indexOf(observer)
+      if (idx > -1) observers.splice(idx, 1)
     }
+  }
+
+  return {
+    destroy,
+    next,
+    subscribe
   }
 }
