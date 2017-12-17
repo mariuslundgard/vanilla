@@ -5,7 +5,6 @@
  */
 
 class Details extends Component {
-  // Initialize the component (method with side-effects)
   constructor(props = {}) {
     super()
     this.elm = null
