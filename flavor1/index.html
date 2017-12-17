@@ -13,7 +13,7 @@
 'use strict'
 
 let rootElm = document.getElementById('root')
-let state = details.getStateAndOrPatch(null, {open: true})
+let state = details.mountPatchAndGetState(null, {open: true})
 
 rootElm.innerHTML = details.html(state)
 
