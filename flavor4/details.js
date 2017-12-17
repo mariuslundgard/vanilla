@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * Approach inspired by reactive programming (#3) and Redux
+ * Approach inspired by Elm, React and Redux
  */
 
 const details = {

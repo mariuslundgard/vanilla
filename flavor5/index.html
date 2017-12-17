@@ -17,11 +17,6 @@ const rootElm = document.getElementById('root')
 // Create component model
 const model = new DetailsModel({open: true})
 
-// Subscribe to state changes
-model.subscribe(state => {
-  console.log('new state', state)
-})
-
 // Create component view
 const view = new DetailsView(model)
 
@@ -32,6 +27,11 @@ view.setElement(rootElm.children[0])
 // Create component controller and mount to the DOM
 const ctrl = new DetailsController(model, view)
 ctrl.mount()
+
+// Subscribe to state changes
+model.subscribe(state => {
+  console.log('new state', state)
+})
 
 // Simulate usage (async events)
 const intervalId = setInterval(ctrl.commands.toggle, 1000)

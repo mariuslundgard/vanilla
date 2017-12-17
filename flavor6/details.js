@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * Approach inspired by functional reactive programming.
+ * Approach using functional reactive programming
  */
 
 const details = {

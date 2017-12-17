@@ -1,12 +1,12 @@
 'use strict'
 
 /*
- * Approach inspired by reactive programming (#2)
+ * Approach inspired by React’s Component class
  */
 
 class Details extends Component {
   // Initialize the component (method with side-effects)
-  constructor(props) {
+  constructor(props = {}) {
     super()
     this.elm = null
     this.state = {open: props.open || false}
