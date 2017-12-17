@@ -30,9 +30,9 @@ A collection of different ways of structuring vanilla JavaScript components.
 
 ### [Flavor 4](flavor4/) – inspired by MVC
 
-| Pros                               | Cons                                                                                                                                                                                                                                                  |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| • **Familiar** and well-discussed. | • **Old and unsexy.** Hard to bring on new developers who want to try shinier things.<br>• **Open to interpretation.** Developers interpret MVC in many different ways, leading to inconsisitencies and “spaghetti” code.<br>• **Many abstractions.** |
+| Pros                               | Cons                                                                                                                                                                                                                                                       |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| • **Familiar** and well-discussed. | • **Old and unattractive.** Hard to bring on new developers who want to try shinier things.<br>• **Open to interpretation.** Developers interpret MVC in many different ways, leading to inconsistencies and “spaghetti” code.<br>• **Many abstractions.** |
 
 ### [Flavor 5](flavor5/) – using functional reactive programming
 
