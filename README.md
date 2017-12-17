@@ -2,7 +2,7 @@
 
 A collection of different ways of structuring vanilla JavaScript components.
 
-## Common features of all flavors
+## Features common to of all flavors
 
 * **Isomorphic.** Works on both the server (Node.js) and in the browser’s main thread.
 * **Observable.** Provides a way to listen to state changes.
